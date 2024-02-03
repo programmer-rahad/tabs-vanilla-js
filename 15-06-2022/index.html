@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tab using vanilla js (12:11pm Wednesday 15 June 2022 )</title>
+    <style>
+      /* Reset */
+      * {
+        margin: 0;
+      }
+
+      body,
+      html {
+        min-height: 100%;
+      }
+
+      button {
+        background: transparent;
+        border: 1px solid #ddd;
+        outline: 0;
+        cursor: pointer;
+        padding: 8px 13px;
+        font-weight: 600;
+        font-family: cursive;
+        letter-spacing: 1px;
+      }
+      h3 {
+        font-size: 24px;
+        font-family: cursive;
+        margin-bottom: 5px;
+      }
+      @media (max-width: 575.98px) {
+        h3 {
+          font-size: 22.5px;
+        }
+      }
+
+      /* Typography */
+      .text-center {
+        text-align: center;
+      }
+
+      /* Layout */
+      .w-100 {
+        width: 100%;
+      }
+
+      .h-100 {
+        height: 100%;
+      }
+
+      .d-flex {
+        display: flex;
+      }
+
+      .align-items-center {
+        align-items: center;
+      }
+
+      .justify-content-center {
+        justify-content: center;
+      }
+
+      .d-table {
+        display: table;
+      }
+
+      .d-table-cell {
+        display: table-cell;
+        vertical-align: middle;
+      }
+
+      /* Style */
+
+      .tabs-container {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 500px;
+        margin-top: 80px;
+        margin-bottom: 55px;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      @media (max-width: 767.98px) {
+        .tabs-container {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+      }
+      @media (max-width: 575.98px) {
+        .tabs-container {
+          margin-top: 65px;
+        }
+      }
+      .tab-content {
+        margin-top: 15px;
+      }
+      .tab-buttons {
+        text-align: center;
+      }
+      button {
+        cursor: pointer;
+        margin: 5px 3px;
+      }
+
+      button.active {
+        border: 1px solid rgb(252, 89, 176);
+        color: rgb(252, 89, 176);
+      }
+
+      .tab-content > div {
+        margin-bottom: 5px;
+        padding: 16px 25px 23px;
+        display: none;
+        animation: fadeIn 0.5s;
+        border: 1px solid #ccc;
+        line-height: 1.45;
+      }
+      @media(max-width:575.98px) {
+          .tab-content > div { 
+            padding: 14px 22px 21px;
+          }          
+        }
+
+      .tab-content > div.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      /*# sourceMappingURL=style.css.map */
+    </style>
+  </head>
+
+  <body>
+    <div class="tabs-container">
+      <div class="tab-buttons">
+        <button>Bangladesh</button>
+        <button>Srilanka</button>
+        <button>India</button>
+        <button>Pakistan</button>
+        <button>America</button>
+      </div>
+      <div class="tab-content">
+        <div>
+          <h3>Bangladesh</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab repellat
+            architecto consequuntur hic, ea laboriosam? Iure fugit reprehenderit
+            cum odit at possimus animi dolor excepturi.
+          </p>
+        </div>
+        <div>
+          <h3>Srilanka</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab repellat
+            architecto consequuntur hic, ea laboriosam? Iure fugit reprehenderit
+            cum odit at possimus animi dolor excepturi.
+          </p>
+        </div>
+        <div>
+          <h3>India</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab repellat
+            architecto consequuntur hic, ea laboriosam? Iure fugit reprehenderit
+            cum odit at possimus animi dolor excepturi.
+          </p>
+        </div>
+        <div>
+          <h3>Pakistan</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab repellat
+            architecto consequuntur hic, ea laboriosam? Iure fugit reprehenderit
+            cum odit at possimus animi dolor excepturi.
+          </p>
+        </div>
+        <div>
+          <h3>America</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab repellat
+            architecto consequuntur hic, ea laboriosam? Iure fugit reprehenderit
+            cum odit at possimus animi dolor excepturi.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function getData(url, callback) {
+        const xhr = new XMLHttpRequest();
+
+        xhr.onload = function () {
+          const data = JSON.parse(this.response);
+          callback(data);
+        };
+        xhr.open("get", url, true);
+        xhr.send();
+      }
+
+      // OOP Way: Ajax
+      // function Tab(container, url, currentItem) {
+      //     this.currentItem = currentItem;
+      //     this.buttonsContainer = container.querySelector('.tab-buttons');
+      //     this.tabContentContainer = container.querySelector('.tab-content');
+      //     this.buttons = undefined;
+      //     this.tabContents = undefined;
+
+      //     this.changeContent = function () {
+      //         const length = this.buttons.length;
+      //         for (let i = 0; i < length; i++) {
+      //             this.buttons[i].classList.remove('active');
+      //             this.tabContents[i].classList.remove('active');
+      //         }
+      //         this.buttons[this.currentItem].classList.add('active');
+      //         this.tabContents[this.currentItem].classList.add('active');
+      //     }
+      //     this.eventListeners = function (buttons) {
+      //         for (let i = 0; i < buttons.length; i++) {
+      //             const $this = this;
+      //             buttons[i].addEventListener('click', function () {
+      //                 const newButtons = [...buttons];
+      //                 for (let i = 0; i < newButtons.length; i++) {
+      //                     if (this === newButtons[i]) {
+      //                         $this.currentItem = i;
+      //                     }
+      //                 }
+      //                 $this.changeContent();
+      //             });
+      //         }
+      //     }
+      //     this.renderContent = function (data) {
+      //         const { countries } = data;
+
+      //         const buttonsHTML = countries.map(country => `<button>${country.name}</button>`)
+      //         const contentHTML = countries.map(country => {
+      //             return `
+      //         <div>
+      //             <h3>
+      //                 ${country.name}
+      //             </h3>
+      //             <p>
+      //                 ${country.content}
+      //             </p>
+      //         </div>
+      //     `
+      //         });
+      //         this.buttonsContainer.innerHTML = buttonsHTML.join('');
+      //         this.tabContentContainer.innerHTML = contentHTML.join('');
+
+      //         this.buttons = this.buttonsContainer.children;
+      //         this.tabContents = this.tabContentContainer.children;
+
+      //         this.changeContent();
+
+      //         this.eventListeners(this.buttons);
+      //     }
+
+      //     this.tabActivate = function () {
+      //         getData(url, this.renderContent.bind(this))
+      //     }
+      //     this.tabActivate();
+
+      // }
+
+      /* Functional Way: Ajax */
+
+      // function tab(container, url) {
+      //     const buttonsContainer = container.querySelector('.tab-buttons');
+      //     const tabContentContainer = container.querySelector('.tab-content');
+      //     let currentItem = 0;
+      //     let buttons;
+      //     let tabContents;
+      //     function eventListeners() {
+      //         for (let i = 0; i < buttons.length; i++) {
+      //             buttons[i].addEventListener('click', function () {
+      //                 for (let i = 0; i < buttons.length; i++) {
+      //                     if (this === buttons[i]) {
+      //                         currentItem = i;
+      //                     }
+      //                 }
+      //                 changeContent(currentItem);
+      //             });
+      //         }
+      //     }
+      //     function changeContent(index) {
+      //         const length = buttons.length;
+      //         for (let i = 0; i < length; i++) {
+      //             buttons[i].classList.remove('active');
+      //             tabContents[i].classList.remove('active');
+      //         }
+      //         buttons[index].classList.add('active');
+      //         tabContents[index].classList.add('active');
+      //     }
+      //     function renderContent(data) {
+      //         const { countries } = data;
+
+      //         const buttonsHTML = countries.map(country => `<button>${country.name}</button>`)
+      //         const contentHTML = countries.map(country => {
+      //             return `
+      //                 <div>
+      //                     <h3>
+      //                         ${country.name}
+      //                     </h3>
+      //                     <p>
+      //                         ${country.content}
+      //                     </p>
+      //                 </div>
+      //             `
+      //         });
+      //         buttonsContainer.innerHTML = buttonsHTML.join('');
+      //         tabContentContainer.innerHTML = contentHTML.join('');
+
+      //         buttons = buttonsContainer.children;
+      //         tabContents = tabContentContainer.children;
+
+      //         changeContent(currentItem);
+
+      //         eventListeners(buttons);
+
+      //     }
+      //     function tabActivate() {
+      //         getData(url, renderContent);
+      //     }
+      //     tabActivate();
+
+      // }
+
+      /* Functional Way 2: Object Data */
+
+      // function tab(container,countries) {
+      //     const buttonsContainer = container.querySelector('.tab-buttons');
+      //     const tabContentContainer = container.querySelector('.tab-content');
+      //     let currentItem = 0;
+      //     let buttons = buttonsContainer.children;
+      //     let tabContents = tabContentContainer.children;
+      //     function changeContent(index) {
+      //         const length = buttons.length;
+      //         for (let i = 0; i < length; i++) {
+      //             buttons[i].classList.remove('active');
+      //             tabContents[i].classList.remove('active');
+      //         }
+      //         buttons[index].classList.add('active');
+      //         tabContents[index].classList.add('active');
+      //     }
+      //     function eventListeners() {
+      //         for (let i = 0; i < buttons.length; i++) {
+      //             buttons[i].addEventListener('click', function () {
+      //                 for (let i = 0; i < buttons.length; i++) {
+      //                     if (this === buttons[i]) {
+      //                         currentItem = i;
+      //                     }
+      //                 }
+      //                 changeContent(currentItem);
+      //             });
+      //         }
+      //     }
+      //     const buttonsHTML = countries.map(country => `<button>${country.name}</button>`)
+      //     const contentHTML = countries.map(country => {
+      //         return `
+      //             <div>
+      //                 <h3>
+      //                     ${country.name}
+      //                 </h3>
+      //                 <p>
+      //                     ${country.content}
+      //                 </p>
+      //             </div>
+      //         `
+      //     });
+      //     buttonsContainer.innerHTML = buttonsHTML.join('');
+      //     tabContentContainer.innerHTML = contentHTML.join('');
+
+      //     changeContent(currentItem);
+      //     eventListeners(buttons);
+      // }
+
+      /* Functional Way 3: Normal Javascript */
+      function tab(container) {
+        const buttonsContainer = container.querySelector(".tab-buttons");
+        const tabContentContainer = container.querySelector(".tab-content");
+        let buttons = buttonsContainer.children;
+        let tabContents = tabContentContainer.children;
+        let currentItem = 0;
+        function changeContent(index) {
+          const length = buttons.length;
+          for (let i = 0; i < length; i++) {
+            buttons[i].classList.remove("active");
+            tabContents[i].classList.remove("active");
+          }
+          buttons[index].classList.add("active");
+          tabContents[index].classList.add("active");
+        }
+        function eventListeners() {
+          for (let i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener("click", function () {
+              for (let i = 0; i < buttons.length; i++) {
+                if (this === buttons[i]) {
+                  currentItem = i;
+                }
+              }
+              changeContent(currentItem);
+            });
+          }
+        }
+
+        changeContent(currentItem);
+        eventListeners(buttons);
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const tabContainer = document.querySelector(".tabs-container");
+        // tab(tabContainer, 'assets/js/tabs.json');
+        // tab(tabContainer, countries);
+        // new Tab(tabContainer, 'assets/js/tabs.json',1);
+        tab(tabContainer);
+      });
+    </script>
+  </body>
+</html>

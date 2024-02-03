@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tab using vanilla js ( 7:26am Friday 25 February 2022 )</title>
+
+    <style>
+      .tab--wrapper {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 80px;
+        margin-bottom: 50px;
+        width: 90%;
+      }
+      @media(max-width:575.98px) {
+        .tab--wrapper {
+          margin-top: 65px;
+        }
+      }
+      
+
+      .tab__buttons button {
+        padding: 8px 18px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        border: 1.2px solid;
+        background-color: transparent;
+        margin-right: 8px;
+        border-radius: 0;
+      }
+
+      .tab__buttons button:hover,
+      .tab__buttons button.active {
+        border-radius: 2.5px;
+        border-color: rgb(250, 91, 176);
+        color: rgb(247, 86, 171);
+      }
+
+      .tab__items .tab__item {
+        display: none;
+        animation: fadeEffect 0.5s;
+      }
+      .tab__items .tab__item h3 {
+        font-family: cursive;
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      @media (max-width: 479.98px) {
+        .tab__items .tab__item h3 {
+          font-size: 22px;
+        }
+      }
+      .tab__items .tab__item p {
+        line-height: 1.5;
+        margin: 0;
+        text-align: justify;
+        font-size: 15.4px;
+        letter-spacing: 0.5px;
+        font-family: cursive;
+      }
+      @media (max-width: 479.98px) {
+        .tab__items .tab__item p {
+          font-size: 15px;
+        }
+      }
+
+      @keyframes fadeEffect {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      .tab__items .tab__item.active {
+        display: block;
+      }
+      @media (max-width: 575.98px) {
+        .tab--wrapper {
+          width: 95%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section id="tab-section">
+      <div class="container">
+        <div class="tab--wrapper">
+          <div class="tab__buttons">
+            <button class="active">London</button>
+            <button>Paris</button>
+            <button>Tokyo</button>
+          </div>
+          <div class="tab__items">
+            <div class="tab__item active">
+              <div class="tab__item__content">
+                <h3>London is the capital of England</h3>
+                <p>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Ratione aliquid rerum, culpa molestiae veritatis quasi
+                  provident eum, id quo saepe doloremque impedit aperiam
+                  eveniet? Quos amet reiciendis laborum sit atque, sapiente,
+                  repellat ad, iste minus voluptatibus ab temporibus pariatur
+                  nobis sequi quis aperiam labore. Nesciunt minima rem impedit
+                  necessitatibus officia. Itaque amet sed aut ullam?
+                </p>
+              </div>
+            </div>
+            <div class="tab__item">
+              <div class="tab__item__content">
+                <h3>Paris is the capital of France</h3>
+                <p>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Ratione aliquid rerum, culpa molestiae veritatis quasi
+                  provident eum, id quo saepe doloremque impedit aperiam
+                  eveniet? Quos amet reiciendis laborum sit atque, sapiente,
+                  repellat ad, iste minus voluptatibus ab temporibus pariatur
+                  nobis sequi quis aperiam labore. Nesciunt minima rem impedit
+                  necessitatibus officia. Itaque amet sed aut ullam?
+                </p>
+              </div>
+            </div>
+            <div class="tab__item">
+              <div class="tab__item__content">
+                <h3>Tokyo is the capital of Japan</h3>
+                <p>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Ratione aliquid rerum, culpa molestiae veritatis quasi
+                  provident eum, id quo saepe doloremque impedit aperiam
+                  eveniet? Quos amet reiciendis laborum sit atque, sapiente,
+                  repellat ad, iste minus voluptatibus ab temporibus pariatur
+                  nobis sequi quis aperiam labore. Nesciunt minima rem impedit
+                  necessitatibus officia. Itaque amet sed aut ullam?
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      +(function () {
+        const tabButtons = document.querySelectorAll(".tab__buttons button");
+        const tabItems = document.querySelectorAll(".tab__items .tab__item");
+
+        if (tabItems.length) {
+          tabButtons.forEach(function (button, i) {
+            button.addEventListener("click", function () {
+              tabItems.forEach(function (tabItem, i) {
+                tabItem.classList.remove("active");
+                tabButtons[i].classList.remove("active");
+              });
+              tabItems[i].classList.add("active");
+              tabButtons[i].classList.add("active");
+            });
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

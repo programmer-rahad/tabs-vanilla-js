@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Tab using vanilla js (29-03-2019)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: arial;
+        letter-spacing: 1px;
+        font-size: 14px;
+      }
+      ul {
+        list-style: none;
+      }
+      #tab-wrapper {
+        max-width: 550px;
+        width: calc(100% - 33px);
+        height: auto;
+        background: #e6c60f;
+        margin: 0 auto;
+        margin-top: 80px;
+        border-radius: 6px;
+        overflow: hidden;
+        margin-bottom: 55px; 
+      }
+      @media(max-width:575.98px) {
+        #tab-wrapper {
+          margin-top: 65px; 
+        }
+      }
+      #tab-wrapper #tab-menu {
+        display: flex;
+        /* background: #F4DC52; */
+        background: #f4dc52;
+        text-align: center;
+      }
+      #tab-wrapper #tab-menu li {
+        flex: 1;
+        padding: 15px;
+        border-right: 1px solid #fff;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 16px;
+        color: #333;
+        border-bottom: 1px solid transparent;
+        text-shadow: 0.5px 0.5px 1px #fff;
+      }
+      @media (max-width: 575.98px) {
+        #tab-wrapper #tab-menu li {
+          font-size: 15px;
+          padding: 13px 9px;
+        }
+      }
+      #tab-wrapper #tab-menu li.active {
+        /* background: #E6C60F; */
+        background: #e6c60f;
+        color: #fff;
+        border-color: #fff;
+        text-shadow: 0.5px 0.5px 0.7px #000;
+        /* border-bottom-color: #fff;  */
+        border-bottom-color: transparent;
+      }
+      #tab-wrapper #tab-menu li:last-child {
+        border-right: 0px;
+      }
+      .single-item {
+        padding: 30px;
+        display: none;
+        border-radius: 4px;
+      }
+      @media (max-width: 575.98px) {
+        .single-item {
+          padding: 26px 22px;
+        }
+      }
+      .single-item h3 {
+        font-size: 23px;
+        margin-bottom: 8px;
+        color: #fff;
+        text-shadow: 0.5px 0.5px 0.7px #000;
+      }
+      .single-item p {
+        line-height: 1.6;
+        font-size: 15.5px;
+        font-family: cursive;
+        color: #fff;
+        text-shadow: 0.5px 0.5px 0.7px #000;
+      }
+      @media (max-width: 575.98px) {
+        .single-item p {
+          font-size: 14.75px;
+        }
+      }
+      .single-item:first-child {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="tab-wrapper">
+      <ul id="tab-menu">
+        <li class="active">First</li>
+        <li>Second</li>
+        <li>Third</li>
+        <li>Fourth</li>
+        <li>Fifth</li>
+      </ul>
+      <div id="tab-items">
+        <div class="single-item">
+          <h3>First Title</h3>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi
+            quidem exercitationem mollitia officia repudiandae odio dolor
+            architecto. Illo nam ad quam quia, repellat quae labore porro
+            laudantium provident incidunt distinctio inventore, asperiores quasi
+            eligendi eos, nihil voluptatum numquam quisquam nulla?
+          </p>
+        </div>
+        <div class="single-item">
+          <h3>Second Title</h3>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi
+            quidem exercitationem mollitia officia repudiandae odio dolor
+            architecto. Illo nam ad quam quia, repellat quae labore porro
+            laudantium provident incidunt distinctio inventore, asperiores quasi
+            eligendi eos, nihil voluptatum numquam quisquam nulla?
+          </p>
+        </div>
+        <div class="single-item">
+          <h3>Third Title</h3>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi
+            quidem exercitationem mollitia officia repudiandae odio dolor
+            architecto. Illo nam ad quam quia, repellat quae labore porro
+            laudantium provident incidunt distinctio inventore, asperiores quasi
+            eligendi eos, nihil voluptatum numquam quisquam nulla?
+          </p>
+        </div>
+        <div class="single-item">
+          <h3>Fourth Title</h3>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi
+            quidem exercitationem mollitia officia repudiandae odio dolor
+            architecto. Illo nam ad quam quia, repellat quae labore porro
+            laudantium provident incidunt distinctio inventore, asperiores quasi
+            eligendi eos, nihil voluptatum numquam quisquam nulla?
+          </p>
+        </div>
+        <div class="single-item">
+          <h3>Fifth Title</h3>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi
+            quidem exercitationem mollitia officia repudiandae odio dolor
+            architecto. Illo nam ad quam quia, repellat quae labore porro
+            laudantium provident incidunt distinctio inventore, asperiores quasi
+            eligendi eos, nihil voluptatum numquam quisquam nulla?
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function fadeAnimate(element, duration) {
+        var keyframes = [{ opacity: 0 }, { opacity: 1 }];
+
+        var options = {
+          duration: duration,
+        };
+
+        element.animate(keyframes, options);
+      }
+      var tabMenu = document.querySelectorAll("li");
+      var tabitems = document.querySelectorAll(".single-item");
+
+      tabMenu.forEach(function (item, index) {
+        tabMenu[index].addEventListener("click", function () {
+          tabMenu.forEach(function (item, index) {
+            item.className = "";
+            tabitems[index].style.display = "none";
+          });
+          tabitems[index].style.display = "block";
+          this.className = "active"; 
+		  
+          fadeAnimate(tabitems[index], 500);
+
+        });
+      });
+    </script>
+  </body>
+</html>

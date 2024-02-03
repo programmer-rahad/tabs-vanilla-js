@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tab using Vanilla JS (Monday 7 June 2021)</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .tab-container {
+        max-width: 600px;
+        width: 93%;
+        margin: auto;
+        margin-top: 80px;
+        margin-bottom: 55px; 
+      }
+      @media(max-width:575.98px) {
+        .tab-container {
+          margin-top: 65px; 
+        }
+      }
+      .tab-container h3 {
+        font-family: cursive;
+        margin-bottom: 7px;
+        font-size: 25px;
+        letter-spacing: 1.5px;
+      }
+      @media (max-width: 767.98px) {
+        .tab-container h3 {
+          font-size: 22.5px;
+        }
+      }
+      @media (max-width: 575.98px) {
+        .tab-container h3 {
+          font-size: 23px;
+        }
+      }
+      .tab-container .tab-buttons {
+        border: 1px solid #e6c60f; 
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+      }
+      @media(max-width: 479.98px) {
+        .tab-container .tab-buttons {
+          background-color: #f4dc52;
+        }
+
+      }
+
+      .tab-container .tab-buttons > * {
+        text-decoration: none;
+        padding: 12px 20px;
+        border: none;
+        cursor: pointer;
+        list-style: none;
+        font-family: Arial, Helvetica, sans-serif;
+        letter-spacing: 1px;
+        font-weight: 700;
+        color: #000;
+        background-color: #f4dc52;
+      }
+      @media (max-width: 575.98px) {
+        .tab-container .tab-buttons > * {
+          padding: 11px 16px;
+          font-size: 15px;
+        }
+      }
+      .tab-container .tab-buttons > *:hover,
+      .tab-container .tab-buttons .active {
+        background-color: #e6c60f;
+        color: #fff;
+      }
+      .tab-container .tab-content {
+        border: 1px solid #e6c60f;
+        border-top: 0;
+        padding: 19px 27px 29px;
+        line-height: 1.4;
+        font-size: 16.5px;
+      }
+      @media (max-width: 575.98px) {
+        .tab-container .tab-content {
+          padding: 17px 22px 25px;
+          font-size: 15.5px;
+        }
+      }
+      .tab-container .tab-content:not(.active) {
+        display: none;
+      }
+        
+    </style>
+  </head>
+  <body>
+    <div class="tab-container">
+      <div class="tab-buttons">
+        <a href="#" class="active">London</a>
+        <a href="#">Paris</a>
+        <a href="#">Tokyo</a>
+        <a href="#">Dhaka</a>
+      </div>
+      <div class="tab-items">
+        <div class="tab-content active">
+          <h3>London</h3>
+          <p>
+            London is the capital city of England. Lorem ipsum dolor, sit amet
+            consectetur adipisicing elit. A consequuntur reprehenderit officiis
+            tempore cupiditate ipsam tenetur iste vel sit, omnis cumque
+            praesentium totam debitis dolore libero magnam nesciunt.
+          </p>
+        </div>
+        <div class="tab-content">
+          <h3>Paris</h3>
+          <p>
+            Paris is the capital city of France. Lorem ipsum dolor, sit amet
+            consectetur adipisicing elit. A consequuntur reprehenderit officiis
+            tempore cupiditate ipsam tenetur iste vel sit, omnis cumque
+            praesentium totam debitis dolore libero magnam nesciunt.
+          </p>
+        </div>
+        <div class="tab-content">
+          <h3>Tokyo</h3>
+          <p>
+            Tokyo is the capital city of Japan. Lorem ipsum dolor, sit amet
+            consectetur adipisicing elit. A consequuntur reprehenderit officiis
+            tempore cupiditate ipsam tenetur iste vel sit, omnis cumque
+            praesentium totam debitis dolore libero magnam nesciunt.
+          </p>
+        </div>
+        <div class="tab-content">
+          <h3>Dhaka</h3>
+          <p>
+            Dhaka is the capital city of Bangladesh. Lorem ipsum dolor, sit amet
+            consectetur adipisicing elit. A consequuntur reprehenderit officiis
+            tempore cupiditate ipsam tenetur iste vel sit, omnis cumque
+            praesentium totam debitis dolore libero magnam nesciunt.
+          </p>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Tabs Display Block / None ( Echma Script );
+      +(function () {
+
+        function fadeAnimate(element,duration) {
+          var keyframes = [
+            { opacity: 0 }, 
+            { opacity: 1 },  
+          ];
+        
+          var options = {
+            duration: duration,    
+          };
+        
+          element.animate(keyframes, options);
+        }
+
+        "use strict";
+        const buttons = document.querySelectorAll(
+          ".tab-container .tab-buttons > *"
+        );
+
+        const tabContentItems = document.querySelectorAll(
+          ".tab-container .tab-content"
+        );
+
+        buttons.forEach((btn, i) => {
+          btn.addEventListener("click", (e) => {
+            buttons.forEach((btn) => btn.classList.remove("active"));
+            tabContentItems.forEach((tabConent) =>
+              tabConent.classList.remove("active")
+            );
+            buttons[i].classList.add("active");
+            tabContentItems[i].classList.add("active");
+            
+            fadeAnimate(tabContentItems[i].querySelector('h3'),500);
+            fadeAnimate(tabContentItems[i].querySelector('p'),500);
+
+            e.preventDefault();
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

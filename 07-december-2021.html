@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tab using Vanilla JS ( Tuesday 7 December 2021 )</title>
+
+    <style>
+      #tab-section {
+        padding-top: 80px;
+        padding-bottom: 50px; 
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 96%;
+      }
+      @media(max-width:575.98px) {
+        #tab-section {
+          padding-top: 65px;
+        }
+        
+      }
+
+      .tab-buttons {
+        overflow: hidden; 
+      }
+      .tab-buttons button {
+        padding: 12px 23px;
+        border-radius: 0;
+        cursor: pointer;
+        float: left;
+        border: 0;
+        outline: 0; 
+        border-top: 1.5px solid #E6C60F;
+        border-right: .5px solid #E6C60F; 
+        border-left: .5px solid #E6C60F; 
+        font-weight: 600;
+        background-color: #F4DC52;
+        font-size: 14px;    
+        letter-spacing: .5px;  
+      }
+      /* .tab-buttons button */
+      .tab-buttons button:first-child {
+        border-left: 1.5px solid #E6C60F;  
+      }
+      .tab-buttons button:last-child {
+        border-right: 1.5px solid #E6C60F;   
+      }
+      
+      .tab-buttons button.active {
+        background-color: #E6C60F;
+        color: #fff; 
+        border-color: #E6C60F;  
+      } 
+
+      .tab-content-items {
+        border: 1.5px solid #E6C60F;
+        /* border-top: 1px solid #E6C60F;   */  
+      }
+
+      .tab-content-items .tab-content-item:not(:first-child) {
+        display: none;
+      }
+      .tab-content-item {
+        padding: 20px 25px 25px;
+      }
+      @media(max-width: 479.98px) {
+        
+        .tab-content-item {
+          padding: 20px 22px 25px;
+        }
+      }
+      .tab-content-items h3 {
+        font-size: 23px;
+    margin: 0 0 6px;
+    font-family: cursive;
+      }
+      @media(max-width: 479.98px) {
+        .tab-content-items h3 {
+          font-size: 22px;
+        }
+      }
+      .tab-content-items p {
+        margin: 0;
+        line-height: 1.45;
+      }
+      @media (max-width: 767.98px) {
+        .tab-buttons button {
+          padding: 11px 17px;
+          font-size: 13px;
+        }
+      }
+      @media(max-width: 479.98px) {
+        
+        .tab-buttons button {
+          padding: 11px 13px;
+    font-size: 12.7px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section id="tab-section">
+      <div class="tab-container">
+        <div class="tab-buttons">
+          <button>Bangladesh</button>
+          <button>India</button>
+          <button>Pakistan</button>
+          <button>Srilanka</button>
+        </div>
+        <div class="tab-content-items">
+          <div class="tab-content-item">
+            <h3>Bangladesh</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat
+              neque rem distinctio odio nesciunt earum aliquid exercitationem
+              possimus laudantium quae provident eum iure mollitia eaque
+              accusamus, doloribus dolor quos voluptatum?
+            </p>
+          </div>
+          <div class="tab-content-item">
+            <h3>India</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat
+              neque rem distinctio odio nesciunt earum aliquid exercitationem
+              possimus laudantium quae provident eum iure mollitia eaque
+              accusamus, doloribus dolor quos voluptatum?
+            </p>
+          </div>
+          <div class="tab-content-item">
+            <h3>Pakistan</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat
+              neque rem distinctio odio nesciunt earum aliquid exercitationem
+              possimus laudantium quae provident eum iure mollitia eaque
+              accusamus, doloribus dolor quos voluptatum?
+            </p>
+          </div>
+          <div class="tab-content-item">
+            <h3>Srilanka</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat
+              neque rem distinctio odio nesciunt earum aliquid exercitationem
+              possimus laudantium quae provident eum iure mollitia eaque
+              accusamus, doloribus dolor quos voluptatum?
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      !(function () {
+        const tabButtons = document.querySelector(
+          ".tab-container .tab-buttons"
+        ).children;
+        const tabContentItems = document.querySelectorAll(
+          ".tab-content-items .tab-content-item"
+        );
+
+        if (tabButtons.length) {
+          tabButtons[0].classList.add("active");
+          for (let i = 0; i < tabButtons.length; i++) {
+            tabButtons[i].addEventListener("click", function () {
+              for (let i = 0; i < tabContentItems.length; i++) {
+                var tabItem = tabContentItems[i];
+                tabItem.style.display = "none";
+                tabButtons[i].classList.remove("active");
+              }
+              tabButtons[i].classList.add("active");
+              tabContentItems[i].style.display = "block";
+              tabContentItems[i].animate(
+                [
+                  {
+                    opacity: 0,
+                  },
+                  {
+                    opacity: 1,
+                  },
+                ],
+                {
+                  duration: 500,
+                }
+              );
+            });
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>
